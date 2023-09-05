@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace CG.ProgDec.BL.Models
 {
-    internal class DegreeType
+    public class DegreeType
     {
+
+        // Properties
+        public int Id { get; set; }
+        public int DegreeTypeId { get; set; }
+        public string? Description { get; set; }
+
     }
 }
