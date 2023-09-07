@@ -67,4 +67,18 @@
     <Build Include="Tables\tblStudents.sql" />
     <Build Include="Tables\tblDeclaration.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="PreDeploy\Script.PreDeployment1.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="local.publish.xml" />
+    <None Include="PostDeploy\DefaultData\DegreeTypes.sql" />
+    <None Include="PostDeploy\DefaultData\Students.sql" />
+    <None Include="PostDeploy\DefaultData\Programs.sql" />
+    <None Include="PostDeploy\DefaultData\Declarations.sql" />
+    <None Include="remote.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="PostDeploy\Script.PostDeployment1.sql" />
+  </ItemGroup>
 </Project>
