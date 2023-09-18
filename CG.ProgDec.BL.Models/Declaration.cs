@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CG.ProgDec.BL.Models
 {
-    internal class Declaration
+    public class Declaration
     {
         public int Id { get; set; }
         public int StudentId { get; set; }  

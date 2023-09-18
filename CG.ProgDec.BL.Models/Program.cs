@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CG.ProgDec.BL.Models
 {
-    internal class Program
+    public class Program
     {
     }
 }

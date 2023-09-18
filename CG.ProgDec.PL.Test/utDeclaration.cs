@@ -1,9 +1,13 @@
-
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace CG.ProgDec.PL.Test
 {
     [TestClass]
-    public class utProgram
+    public class utDeclaration
     {
         protected ProgDecEntities dc;
         protected IDbContextTransaction transation;
@@ -15,40 +19,40 @@ namespace CG.ProgDec.PL.Test
             transation = dc.Database.BeginTransaction();
         }
 
-        [TestCleanup] 
-        public void Cleanup() 
+        [TestCleanup]
+        public void Cleanup()
         {
             transation.Rollback();
             transation.Dispose();
             dc = null;
 
-            
+
         }
 
 
         [TestMethod]
         public void LoadTest()
         {
-            ProgDecEntities dc= new ProgDecEntities();
+            ProgDecEntities dc = new ProgDecEntities();
 
-            Assert.AreEqual(16, dc.tblPrograms.Count()); // Assert means "test"
-            // Change count to 17 since InsterTest runs first and change lenght +1
-            // Remember to delete data from Program Table safter running test
+            Assert.AreEqual(4, dc.tblDeclarations.Count()); // Assert means "test"
+            // Check Lenght
         }
 
-         
+
         [TestMethod]
         public void InsertTest()
         {
 
             //Make an entity
-            tblProgram entity = new tblProgram();
-            entity.DegreeTypeId = 2;
-            entity.Description = "Basket Weaving";
+            tblDeclaration entity = new tblDeclaration();
+            entity.StudentId = 3;
+            entity.StudentId = 4;
+            entity.ChangeDate = DateTime.Now;
             entity.Id = -99;
 
             //add the entity to the database
-            dc.tblPrograms.Add(entity);
+            dc.tblDeclarations.Add(entity);
 
             //Commit the changes
             int result = dc.SaveChanges();
@@ -59,14 +63,14 @@ namespace CG.ProgDec.PL.Test
 
 
         [TestMethod]
-        public void UpdateTest() 
+        public void UpdateTest()
         {
-            // select * from tblProgram - use the first one 
-            tblProgram entity = dc.tblPrograms.FirstOrDefault();
+            // select * from tblDeclaration - use the first one 
+            tblDeclaration entity = dc.tblDeclarations.FirstOrDefault();
 
             // Change property values
-            entity.Description = "New Description";
-            entity.DegreeTypeId = 3;
+            entity.ProgramId = 3;
+            entity.StudentId = 4;
 
             int result = dc.SaveChanges();
             Assert.IsTrue(result > 0);
@@ -75,10 +79,10 @@ namespace CG.ProgDec.PL.Test
         [TestMethod]
         public void DeleteTest()
         {
-            // Select * from tblProgram where id = 4
-            tblProgram entity = dc.tblPrograms.Where(e => e.Id == 4).FirstOrDefault();
+            // Select * from tblDeclaration where id = 4
+            tblDeclaration entity = dc.tblDeclarations.Where(e => e.Id == 2).FirstOrDefault();
 
-            dc.tblPrograms.Remove(entity);
+            dc.tblDeclarations.Remove(entity);
 
             int result = dc.SaveChanges();
             Assert.AreNotEqual(result, 0);
