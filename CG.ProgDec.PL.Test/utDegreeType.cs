@@ -86,5 +86,13 @@ namespace CG.ProgDec.PL.Test
             Assert.AreNotEqual(result, 0);
         }
 
+        [TestMethod]
+        public void LoadById()
+        {
+            // Two line test
+            tblDegreeType entity = dc.tblDegreeTypes.Where(e => e.Id == 2).FirstOrDefault();
+
+            Assert.AreEqual(entity.Id, 2);
+        }
     }
 }

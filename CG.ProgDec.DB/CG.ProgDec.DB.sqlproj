@@ -64,7 +64,7 @@
   <ItemGroup>
     <Build Include="Tables\tblDegreeType.sql" />
     <Build Include="Tables\tblProgram.sql" />
-    <Build Include="Tables\tblStudents.sql" />
+    <Build Include="Tables\tblStudent.sql" />
     <Build Include="Tables\tblDeclaration.sql" />
   </ItemGroup>
   <ItemGroup>
