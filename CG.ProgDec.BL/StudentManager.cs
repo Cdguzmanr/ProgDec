@@ -1,15 +1,28 @@
 ﻿using CG.ProgDec.BL.Models;
 using CG.ProgDec.PL;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Update;
 
 namespace CG.ProgDec.BL
 {
     public static class StudentManager 
     {
-        public static int Insert()
+        public static int Insert(string firstName, string lastName, string studentId, ref int id, bool rollback = false) // Id by reference
         {
             try
             {
-                return 0;
+                Student student = new Student()
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    StudentId = studentId
+                };
+                int result = Insert(student, rollback);
+
+                // IMPORTANT - BACKFILL THE REFERENCE ID
+                id = student.Id;
+
+                return result;
             }
             catch (Exception)
             {
@@ -18,6 +31,45 @@ namespace CG.ProgDec.BL
             }
             
         }
+
+        public static int Insert(Student student, bool rollback = false) // Id by reference
+        {
+            try
+            {
+                int results = 0;
+                using(ProgDecEntities dc = new ProgDecEntities())
+                {
+                    IDbContextTransaction transaction = null;
+                    if (rollback) transaction = dc.Database.BeginTransaction();
+
+                    tblStudent entity = new tblStudent();
+                    entity.Id = dc.tblStudents.Any() ? dc.tblStudents.Max(s => s.Id) + 1 : 1 ;
+                    entity.FirstName = student.FirstName;
+                    entity.LastName = student.LastName;
+                    entity.StudentId = student.StudentId;
+
+                    // IMPORTANT - BACK FILL THE ID 
+                    student.Id = entity.Id;
+
+
+
+                    dc.tblStudents.Add(entity);
+                    results = dc.SaveChanges();
+
+                    if (rollback) transaction.Rollback();
+                }
+
+
+                return results;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
 
         public static int Update() 
         {
