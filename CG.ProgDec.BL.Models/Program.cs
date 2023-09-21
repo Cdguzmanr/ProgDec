@@ -9,5 +9,8 @@ namespace CG.ProgDec.BL.Models
 {
     public class Program
     {
+        public int Id { get; set; }
+        public string? Description { get; set; }
+        public int DegreeTypeId { get; set; }
     }
 }
