@@ -33,7 +33,23 @@ namespace CG.ProgDec.BL.Test
             };
 
             int results = StudentManager.Insert("Bale", "Organa", "555555555", ref id, true);
-            Assert.AreEqual(6, id);
+            Assert.AreEqual(1, results);
+        }
+
+        [TestMethod]
+        public void UpdateTest()
+        {
+            int id = 0;
+            Student student = StudentManager.LoadById(3);
+            student.FirstName = "UpdateTest";
+            int results = StudentManager.Update(student, true);
+            Assert.AreEqual(1, results);
+        }
+
+        [TestMethod]
+        public void DeleteTest()
+        {
+            int results = StudentManager.Delete(3, true);
             Assert.AreEqual(1, results);
         }
     }

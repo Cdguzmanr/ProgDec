@@ -1,44 +1,145 @@
 ﻿using CG.ProgDec.BL.Models;
 using CG.ProgDec.PL;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace CG.ProgDec.BL
 {
     public static class DeclarationManager
     {
-        public static int Insert()
+        public static int Insert(int programId,
+                                 int studentId,
+                                 ref int id,
+                                 bool rollback = false)
         {
             try
             {
-                return 0;
+                Declaration declaration = new Declaration
+                {
+                    ProgramId = programId,
+                    StudentId = studentId,
+                    ChangeDate = DateTime.Now
+                };
+
+                int results = Insert(declaration, rollback);
+
+                // IMPORTANT - BACKFILL THE REFERENCE ID
+                id = declaration.Id; ;
+
+                return results;
             }
             catch (Exception)
             {
 
                 throw;
             }
-
         }
 
-        public static int Update()
+        public static int Insert(Declaration declaration, bool rollback = false)
         {
             try
             {
+                int results = 0;
+                using (ProgDecEntities dc = new ProgDecEntities())
+                {
+                    IDbContextTransaction transaction = null;
+                    if (rollback) transaction = dc.Database.BeginTransaction();
 
+                    tblDeclaration entity = new tblDeclaration();
+
+                    //if(dc.tblDeclarations.Any())
+                    //{
+                    //    entity.Id = dc.tblDeclarations.Max(s => s.Id) + 1;
+                    //}
+                    //else
+                    //{
+                    //    entity.Id = 1;
+                    //}
+
+                    entity.Id = dc.tblDeclarations.Any() ? dc.tblDeclarations.Max(s => s.Id) + 1 : 1;
+                    entity.ProgramId = declaration.ProgramId;
+                    entity.StudentId = declaration.StudentId;
+                    entity.ChangeDate = DateTime.Now;
+
+
+                    // IMPORTANT - BACK FILL THE ID
+                    declaration.Id = entity.Id;
+
+                    dc.tblDeclarations.Add(entity);
+                    results = dc.SaveChanges();
+
+                    if (rollback) transaction.Rollback();
+
+                }
+
+                return results;
             }
             catch (Exception)
             {
 
                 throw;
             }
-
-            return 0;
         }
-
-        public static int Delete()
+        public static int Update(Declaration declaration, bool rollback = false)
         {
             try
             {
-                return 0;
+                int results = 0;
+                using (ProgDecEntities dc = new ProgDecEntities())
+                {
+                    IDbContextTransaction transaction = null;
+                    if (rollback) transaction = dc.Database.BeginTransaction();
+
+                    // Get the row that we are trying to update
+                    tblDeclaration entity = dc.tblDeclarations.FirstOrDefault(s => s.Id == declaration.Id);
+
+                    if (entity != null)
+                    {
+                        entity.ProgramId = declaration.ProgramId;
+                        entity.StudentId = declaration.StudentId;
+                        entity.ChangeDate = DateTime.Now;
+                        results = dc.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new Exception("Row does not exist");
+                    }
+
+                    if (rollback) transaction.Rollback();
+                }
+                return results;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public static int Delete(int id, bool rollback = false)
+        {
+            try
+            {
+                int results = 0;
+                using (ProgDecEntities dc = new ProgDecEntities())
+                {
+                    IDbContextTransaction transaction = null;
+                    if (rollback) transaction = dc.Database.BeginTransaction();
+
+                    // Get the row that we are trying to update
+                    tblDeclaration entity = dc.tblDeclarations.FirstOrDefault(s => s.Id == id);
+
+                    if (entity != null)
+                    {
+                        dc.tblDeclarations.Remove(entity);
+                        results = dc.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new Exception("Row does not exist");
+                    }
+
+                    if (rollback) transaction.Rollback();
+                }
+                return results;
             }
             catch (Exception)
             {
@@ -51,14 +152,33 @@ namespace CG.ProgDec.BL
         {
             try
             {
-                return null;
+                using (ProgDecEntities dc = new ProgDecEntities())
+                {
+                    tblDeclaration entity = dc.tblDeclarations.FirstOrDefault(s => s.Id == id);
+
+                    if (entity != null)
+                    {
+                        return new Declaration
+                        {
+                            Id = entity.Id,
+                            StudentId = entity.StudentId,
+                            ProgramId = entity.ProgramId,
+                            ChangeDate = entity.ChangeDate,
+
+                        };
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
+
             }
             catch (Exception)
             {
 
                 throw;
             }
-
         }
 
         public static List<Declaration> Load()
@@ -66,24 +186,25 @@ namespace CG.ProgDec.BL
             try
             {
                 List<Declaration> list = new List<Declaration>();
+
                 using (ProgDecEntities dc = new ProgDecEntities())
                 {
-                    (from d in dc.tblDeclarations
+                    (from s in dc.tblDeclarations
                      select new
                      {
-                         d.Id,
-                         d.ProgramId,
-                         d.StudentId,
-                         d.ChangeDate
+                         s.Id,
+                         s.StudentId,
+                         s.ProgramId,
+                         s.ChangeDate,
                      })
-                    .ToList()
-                    .ForEach(declaration => list.Add(new Declaration
-                    {
-                        Id = declaration.Id,
-                        ProgramId = declaration.ProgramId,
-                        StudentId = declaration.StudentId,  
-                        ChangeDate = declaration.ChangeDate
-                    }));
+                     .ToList()
+                     .ForEach(declaration => list.Add(new Declaration
+                     {
+                         Id = declaration.Id,
+                         StudentId = declaration.StudentId,
+                         ProgramId = declaration.ProgramId,
+                         ChangeDate = declaration.ChangeDate,
+                     }));
                 }
 
                 return list;
@@ -94,5 +215,6 @@ namespace CG.ProgDec.BL
                 throw;
             }
         }
+
     }
 }
