@@ -29,7 +29,7 @@ namespace CG.ProgDec.BL.Test
                 Description = "Test"
             };
 
-            int results = DegreeTypeManager.Insert("Bale", ref id, true);
+            int results = DegreeTypeManager.Insert(degreeType, true);
             Assert.AreEqual(1, results);
         }
 

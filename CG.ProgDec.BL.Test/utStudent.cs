@@ -32,7 +32,7 @@ namespace CG.ProgDec.BL.Test
                 StudentId = "Test"
             };
 
-            int results = StudentManager.Insert("Bale", "Organa", "555555555", ref id, true);
+            int results = StudentManager.Insert(student, true);
             Assert.AreEqual(1, results);
         }
 

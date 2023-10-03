@@ -10,20 +10,20 @@ namespace CG.ProgDec.PL.Test
     public class utDeclaration
     {
         protected ProgDecEntities dc;
-        protected IDbContextTransaction transation;
+        protected IDbContextTransaction transaction;
 
         [TestInitialize]
         public void Initialize()
         {
             dc = new ProgDecEntities();
-            transation = dc.Database.BeginTransaction();
+            transaction = dc.Database.BeginTransaction();
         }
 
         [TestCleanup]
         public void Cleanup()
         {
-            transation.Rollback();
-            transation.Dispose();
+            transaction.Rollback();
+            transaction.Dispose();
             dc = null;
 
 
