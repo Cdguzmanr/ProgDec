@@ -1,4 +1,5 @@
-﻿using CG.Bands.UI.Models;
+﻿using CG.Bands.UI.Extensions;
+using CG.Bands.UI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,12 +19,29 @@ namespace CG.Bands.UI.Controllers
             };
 
         }
+        
+        private void GetBands()
+        {
+            if (HttpContext.Session.GetObject<Band[]>("bands") != null)
+            {
+                bands = HttpContext.Session.GetObject<Band[]>("bands");
+            }
+            else
+            {
+                LoadBands();
+            }
+        }
+
+        private void SetBands()
+        {
+            HttpContext.Session.SetObject("bands", bands);
+        }
 
         // GET: BandController
         [HttpGet]
         public ActionResult Index()
         {
-            LoadBands();
+            GetBands();
             return View(bands);
         }
 
@@ -31,7 +49,7 @@ namespace CG.Bands.UI.Controllers
         [HttpGet]
         public ActionResult Details(int id)
         {
-            LoadBands();
+            GetBands();
             Band band = bands.FirstOrDefault(b => b.Id == id);
             return View(band);
         }
@@ -39,16 +57,34 @@ namespace CG.Bands.UI.Controllers
         // GET: BandController/Create
         public ActionResult Create()
         {
-            return View();
+            Band band = new Band();
+            return View(band);
         }
 
         // POST: BandController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Band band)
         {
             try
             {
+                GetBands(); 
+
+               // Resize the Array
+               Array.Resize(ref bands, bands.Length+1);
+
+                // Calculate the nnew id Value
+                band.Id = bands.Length;
+                bands[bands.Length -1] = band;
+
+                /*
+                 To save variables between pages:
+
+                - Cokies: The data is saved on the client. 
+                - Sesion Variable: The data is saved on the server.
+                 */
+
+                SetBands();
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -60,16 +96,24 @@ namespace CG.Bands.UI.Controllers
         // GET: BandController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            GetBands();
+            Band band = bands.FirstOrDefault(b => b.Id == id);
+            return View(band);
         }
 
         // POST: BandController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Band band)
         {
             try
             {
+                GetBands();
+
+                bands[id-1] = band;
+
+                SetBands();
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -81,7 +125,9 @@ namespace CG.Bands.UI.Controllers
         // GET: BandController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            GetBands();
+            Band band = bands.FirstOrDefault(b => b.Id == id);
+            return View(band);
         }
 
         // POST: BandController/Delete/5
@@ -91,6 +137,12 @@ namespace CG.Bands.UI.Controllers
         {
             try
             {
+                GetBands();
+
+                var newbands = bands.Where(b => b.Id != id);
+                bands = newbands.ToArray();
+
+                SetBands();
                 return RedirectToAction(nameof(Index));
             }
             catch
