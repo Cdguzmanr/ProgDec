@@ -1,0 +1,39 @@
+﻿@model IEnumerable<CG.Bands.UI.Models.Band>
+
+@{
+    ViewData["Title"] = "IndexCard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<div class="row">
+    @foreach(var item in Model)
+    {
+        <div class="col-sm-4">
+            <div class="card mb-2">
+                <div class="card-header">
+                    <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+                </div>
+                <div class="card-body">
+                    <div class="card-img" style="background-image: url('@item.Image');"></div>
+                    <h5>@Html.DisplayFor(modelItem => item.Genre)</h5>
+                    <h5>@Html.DisplayFor(modelItem => item.DateFounded)</h5>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-sm btn-primary" asp-route-id="@item.Id" asp-action="Edit">Edit</a>
+                    <a class="btn btn-sm btn-primary" asp-route-id="@item.Id" asp-action="Details">Details</a>
+                    <a class="btn btn-sm btn-primary" asp-route-id="@item.Id" asp-action="Delete">Delete</a>
+                    <!-- using bootstrap for design -->
+                </div>
+            </div>
+            
+        </div>
+
+    }
+
+</div>
+

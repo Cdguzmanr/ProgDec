@@ -13,9 +13,9 @@ namespace CG.Bands.UI.Controllers
         {
             bands = new Band[]
             {
-                new Band{Id = 1, Name = "Imagine Dragons", Genre="Pop Rock Electro", DateFounded=new DateTime(2008, 4, 3)},
-                new Band{Id = 2, Name= "Queen", Genre="Glam Rock", DateFounded= new DateTime(1970, 5, 9)},
-                new Band{Id = 3, Name="Coldplay", Genre="Alternative rock pop" ,DateFounded=new DateTime(1997, 10,5)}
+                new Band{Id = 1, Image = "https://www.rollingstone.com/wp-content/uploads/2022/07/ID-Press-Photo-Credit-Eric-Ray-Davidson-lo-res.jpg", Name = "Imagine Dragons", Genre="Pop Rock Electro", DateFounded=new DateTime(2008, 4, 3)},
+                new Band{Id = 2, Image = "https://www.the-sun.com/wp-content/uploads/sites/6/2022/11/members-brian-roger-taylor-freddie-555539482.jpg?w=620", Name= "Queen", Genre="Glam Rock", DateFounded= new DateTime(1970, 5, 9)},
+                new Band{Id = 3, Image = "https://mb.cision.com/Public/16699/3560734/a71843662ff4b133_800x800ar.jpg", Name="Coldplay", Genre="Alternative rock pop" ,DateFounded=new DateTime(1997, 10,5)}
             };
 
         }
@@ -41,8 +41,8 @@ namespace CG.Bands.UI.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            GetBands();
-            return View(bands);
+            GetBands(); // Way to drive the view to a different default page
+            return View("IndexCard" , bands);
         }
 
         // GET: BandController/Details/5
