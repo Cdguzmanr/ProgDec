@@ -11,7 +11,7 @@ namespace CG.ProgDec.BL.Models
 
         // Properties
         public int Id { get; set; }
-        public int DegreeTypeId { get; set; }
+
         public string? Description { get; set; }
 
     }
