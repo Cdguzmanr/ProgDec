@@ -189,13 +189,23 @@ namespace CG.ProgDec.BL
 
                 using (ProgDecEntities dc = new ProgDecEntities())
                 {
-                    (from s in dc.tblDeclarations
+                    (from d in dc.tblDeclarations
+                     join s in dc.tblStudents
+                         on d.StudentId equals s.Id
+                     join p in dc.tblPrograms
+                         on d.ProgramId equals p.Id
+                     join dt in dc.tblDegreeTypes
+                         on p.DegreeTypeId equals dt.Id
                      select new
                      {
-                         s.Id,
-                         s.StudentId,
-                         s.ProgramId,
-                         s.ChangeDate,
+                         d.Id,
+                         StudentName = s.FirstName + " " + s.LastName,
+                         ProgramName = p.Description,
+                         DegreeTypeName = dt.Description,
+                         d.ProgramId,
+                         d.ChangeDate,
+                         d.StudentId
+
                      })
                      .ToList()
                      .ForEach(declaration => list.Add(new Declaration
@@ -204,6 +214,9 @@ namespace CG.ProgDec.BL
                          StudentId = declaration.StudentId,
                          ProgramId = declaration.ProgramId,
                          ChangeDate = declaration.ChangeDate,
+                         StudentName = declaration.StudentName, 
+                         ProgramName = declaration.ProgramName,
+                         DegreeTypeName = declaration.DegreeTypeName,
                      }));
                 }
 
