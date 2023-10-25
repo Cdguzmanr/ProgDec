@@ -44,13 +44,19 @@ namespace CG.ProgDec.BL
                     entity.Id = dc.tblDegreeTypes.Any() ? dc.tblDegreeTypes.Max(s => s.Id) + 1 : 1;
                     entity.Description = degreeType.Description;
 
+                    foreach(Program program in degreeType.Programs)
+                    {
+                        // set the orderId on tblOrderItem
+                        ProgramManager.Insert(program, rollback);
+                    }
+
                     // IMPORTANT - BACK FILL THE ID 
                     degreeType.Id = entity.Id;
 
 
 
                     dc.tblDegreeTypes.Add(entity);
-                    results = dc.SaveChanges();
+                    results += dc.SaveChanges(); // Make sure to add the += and not only = 
 
                     if (rollback) transaction.Rollback();
                 }

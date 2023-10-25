@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CG.ProgDec.BL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,10 +34,16 @@ namespace CG.ProgDec.PL.Test
         [TestMethod]
         public void LoadTest()
         {
-            ProgDecEntities dc = new ProgDecEntities();
-
-            Assert.AreEqual(3, dc.tblDegreeTypes.Count()); // Assert means "test"
+            var items = DegreeTypeManager.Load();
+            Assert.AreEqual(3, items.Count); // Assert means "test"
             // Make sure to check the lenght we are asserting
+            Assert.AreEqual(9, items[2].Programs.Count);
+        }
+
+        [TestMethod]
+        public void LoadByIdTest() { 
+            var item = DegreeTypeManager.LoadById(1);
+            Assert.AreEqual(6, item.Programs.Count);
         }
 
 

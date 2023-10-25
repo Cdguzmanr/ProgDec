@@ -1,26 +1,22 @@
 ﻿@model IEnumerable<CG.ProgDec.BL.Models.Program>
 
 @{
-    ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
 
-<p>
+<p class="row m-2">
     <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayNameFor(model => model.DegreeTypeName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DegreeTypeId)
             </th>
             <th></th>
         </tr>
@@ -28,14 +24,12 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
+                @Html.DisplayFor(modelItem => item.DegreeTypeName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DegreeTypeId)
             </td>
             <td>
                     @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

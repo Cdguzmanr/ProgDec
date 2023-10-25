@@ -181,7 +181,7 @@ namespace CG.ProgDec.BL
             }
         }
 
-        public static List<Declaration> Load()
+        public static List<Declaration> Load(int? programId = null)
         {
             try
             {
@@ -196,6 +196,7 @@ namespace CG.ProgDec.BL
                          on d.ProgramId equals p.Id
                      join dt in dc.tblDegreeTypes
                          on p.DegreeTypeId equals dt.Id
+                     where d.ProgramId == programId || programId == null // Important for Cehckpoint 4, point 3
                      select new
                      {
                          d.Id,

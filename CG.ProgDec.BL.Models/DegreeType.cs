@@ -14,5 +14,7 @@ namespace CG.ProgDec.BL.Models
 
         public string? Description { get; set; }
 
+        public List<Program> Programs { get; set; } = new List<Program>();
+
     }
 }

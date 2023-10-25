@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CG.ProgDec.BL\CG.ProgDec.BL.csproj" />
     <ProjectReference Include="..\CG.ProgDec.PL\CG.ProgDec.PL.csproj" />
   </ItemGroup>
 

@@ -171,7 +171,7 @@ namespace CG.ProgDec.BL
 
         }
 
-        public static List<Program> Load()
+        public static List<Program> Load(int? degreeTypeId = null)
         {
             try
             {
@@ -179,18 +179,22 @@ namespace CG.ProgDec.BL
                 using (ProgDecEntities dc = new ProgDecEntities())
                 {
                     (from s in dc.tblPrograms
+                     join dt in dc.tblDegreeTypes on s.DegreeTypeId equals dt.Id
+                     where s.DegreeTypeId == degreeTypeId || degreeTypeId ==null
                      select new
                      {
                          s.Id,
                          s.Description,
                          s.DegreeTypeId,
+                         DegreeTypeName = dt.Description 
                      })
                     .ToList()
                     .ForEach(program => list.Add(new Program
                     {
                         Id = program.Id,
                         Description = program.Description,
-                        DegreeTypeId = program.DegreeTypeId
+                        DegreeTypeId = program.DegreeTypeId,
+                        //Programs = ProgramManager.Load(program.Id)
                     }));
                 }
 

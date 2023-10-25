@@ -11,6 +11,12 @@ namespace CG.ProgDec.UI.Controllers
             return View(DeclarationManager.Load());
         }
 
+        // Filter the Declaration by ProgramId
+        public IActionResult Browse(int id)
+        {
+            return View( nameof(Index), DeclarationManager.Load(id));
+        }
+
         public IActionResult Details(int id)
         {
             return View(DeclarationManager.LoadById(id));
