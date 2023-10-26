@@ -4,6 +4,8 @@ Microsoft.VisualStudio.Web.CodeGeneration.Design
 
 Scaffold-DbContext "Server=(localdb)\MSSQLLocalDB;Database=CG.ProgDec.DB;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -Context ProgDecEntities -UseDatabaseNames -force
 
+"Data Source=server-21296-300083002.database.windows.net;Initial Catalog=progdecdb;User ID=300083002;Password=Test123!;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"
+
 NOTE: When doing Scaffold of the DB, its important to:
 1- Select CG.ProgDec.PL as Startup Project
 2- Go to Package Manager Console 

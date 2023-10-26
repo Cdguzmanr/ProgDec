@@ -26,8 +26,10 @@ public partial class ProgDecEntities : DbContext
     public virtual DbSet<tblUser> tblUsers { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=CG.ProgDec.DB;Integrated Security=True");
+    {
+        //optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=CG.ProgDec.DB;Integrated Security=True");
+        optionsBuilder.UseSqlServer("Data Source=server-21296-300083002.database.windows.net;Initial Catalog=progdecdb;User ID=300083002db;Password=Test123!;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
