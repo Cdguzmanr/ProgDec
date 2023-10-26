@@ -66,6 +66,7 @@
     <Build Include="Tables\tblProgram.sql" />
     <Build Include="Tables\tblStudent.sql" />
     <Build Include="Tables\tblDeclaration.sql" />
+    <Build Include="Tables\tblUser.sql" />
   </ItemGroup>
   <ItemGroup>
     <PreDeploy Include="PreDeploy\Script.PreDeployment1.sql" />

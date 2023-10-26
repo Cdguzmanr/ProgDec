@@ -14,3 +14,4 @@ Drop Table IF EXISTS tblDegreeType
 Drop Table IF EXISTS tblProgram
 Drop Table IF EXISTS tblStudents
 Drop Table IF EXISTS tblDeclaration
+Drop Table IF EXISTS tblUser

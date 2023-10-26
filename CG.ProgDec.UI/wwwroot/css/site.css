@@ -67,6 +67,13 @@ body {
         padding-right: 0px;
     }
 
-.table tr:nth-child(odd) {
-    background-color: lightcyan;
+
+.table th {
+    background-color: rgba(102, 51, 153, 1);
+    color: white;
+}
+
+.table tr:nth-child(even) {
+    /* rgba -> rgb defines the amount of color in a range of 1-255 | a defines the saturation of the color in a range of 0-1   */
+    background-color: rgba(102, 51, 153, 0.25);
 }

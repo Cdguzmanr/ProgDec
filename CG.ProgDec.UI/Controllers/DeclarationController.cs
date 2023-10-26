@@ -8,6 +8,7 @@ namespace CG.ProgDec.UI.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.Title = "List of Declarations";
             return View(DeclarationManager.Load());
         }
 
@@ -19,11 +20,14 @@ namespace CG.ProgDec.UI.Controllers
 
         public IActionResult Details(int id)
         {
+            var item = DeclarationManager.LoadById(id);
+            ViewBag.Title = "Details";
             return View(DeclarationManager.LoadById(id));
         }
 
         public IActionResult Create()
         {
+            ViewBag.Title = "Create";
             return View();
         }
 
@@ -42,9 +46,11 @@ namespace CG.ProgDec.UI.Controllers
         }
 
 
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int id)   
         {
-            return View(DeclarationManager.LoadById(id));
+            var item = DeclarationManager.LoadById(id);
+            ViewBag.Title = "Edit";
+            return View(item);
         }
 
         [HttpPost]
@@ -64,7 +70,9 @@ namespace CG.ProgDec.UI.Controllers
 
         public IActionResult Delete(int id)
         {
-            return View(DeclarationManager.LoadById(id));
+            var item = DeclarationManager.LoadById(id);
+            ViewBag.Title = "Delete";
+            return View(item);
         }
 
         [HttpPost]

@@ -5,23 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
 
-<p>
+
+<p class="m-2">
     <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StudentId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProgramId)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.ChangeDate)
             </th>
@@ -43,15 +34,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StudentId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProgramId)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ChangeDate)
             </td>

@@ -154,7 +154,27 @@ namespace CG.ProgDec.BL
             {
                 using (ProgDecEntities dc = new ProgDecEntities())
                 {
-                    tblDeclaration entity = dc.tblDeclarations.FirstOrDefault(s => s.Id == id);
+                    var entity = (from d in dc.tblDeclarations
+                                join s in dc.tblStudents
+                                    on d.StudentId equals s.Id
+                                join p in dc.tblPrograms
+                                    on d.ProgramId equals p.Id
+                                join dt in dc.tblDegreeTypes
+                                    on p.DegreeTypeId equals dt.Id
+                                where d.Id == id
+                                select new
+                                {
+                                    d.Id,
+                                    StudentName = s.FirstName + " " + s.LastName,
+                                    ProgramName = p.Description,
+                                    DegreeTypeName = dt.Description,
+                                    d.ProgramId,
+                                    d.ChangeDate,
+                                    d.StudentId
+
+                                })
+                                .FirstOrDefault();
+
 
                     if (entity != null)
                     {
@@ -208,6 +228,7 @@ namespace CG.ProgDec.BL
                          d.StudentId
 
                      })
+                     .Distinct()
                      .ToList()
                      .ForEach(declaration => list.Add(new Declaration
                      {
