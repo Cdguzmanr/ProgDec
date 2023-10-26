@@ -47,7 +47,7 @@ namespace CG.ProgDec.BL
                     foreach(Program program in degreeType.Programs)
                     {
                         // set the orderId on tblOrderItem
-                        ProgramManager.Insert(program, rollback);
+                        results +=ProgramManager.Insert(program, rollback);
                     }
 
                     // IMPORTANT - BACK FILL THE ID 
@@ -150,20 +150,22 @@ namespace CG.ProgDec.BL
                 using (ProgDecEntities dc = new ProgDecEntities())
                 {
                     tblDegreeType entity = dc.tblDegreeTypes.FirstOrDefault(s => s.Id == id);
+
                     if (entity != null)
                     {
                         return new DegreeType
                         {
                             Id = entity.Id,
-                            Description = entity.Description
-                    };
+                            Description= entity.Description,
+                            Programs = ProgramManager.Load(entity.Id)
+                        };
                     }
                     else
                     {
                         throw new Exception();
                     }
-
                 }
+
             }
             catch (Exception)
             {
@@ -178,20 +180,22 @@ namespace CG.ProgDec.BL
             try
             {
                 List<DegreeType> list = new List<DegreeType>();
+
                 using (ProgDecEntities dc = new ProgDecEntities())
                 {
                     (from s in dc.tblDegreeTypes
                      select new
                      {
                          s.Id,
-                         s.Description
+                         s.Description,
                      })
-                    .ToList()
-                    .ForEach(degreeType => list.Add(new DegreeType
-                    {
-                        Id = degreeType.Id,
-                        Description = degreeType.Description
-                }));
+                     .ToList()
+                     .ForEach(degreeType => list.Add(new DegreeType
+                     {
+                         Id = degreeType.Id,
+                         Description = degreeType.Description,
+                         Programs = ProgramManager.Load(degreeType.Id)
+                     }));
                 }
 
                 return list;

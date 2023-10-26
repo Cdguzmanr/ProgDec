@@ -146,22 +146,35 @@ namespace CG.ProgDec.BL
             {
                 using (ProgDecEntities dc = new ProgDecEntities())
                 {
-                    tblProgram entity = dc.tblPrograms.FirstOrDefault(s => s.Id == id);
+                    var entity = (from s in dc.tblPrograms
+                                  join dt in dc.tblDegreeTypes on s.DegreeTypeId equals dt.Id
+                                  where s.Id == id
+                                  select new
+                                  {
+                                      s.Id,
+                                      s.Description,
+                                      s.DegreeTypeId,
+                                      DegreeTypeName = dt.Description
+                                  })
+                                .FirstOrDefault();
+
                     if (entity != null)
                     {
                         return new Program
                         {
                             Id = entity.Id,
                             Description = entity.Description,
-                            DegreeTypeId = entity.DegreeTypeId
+                            DegreeTypeId = entity.DegreeTypeId,
+                            DegreeTypeName = entity.DegreeTypeName
+
                         };
                     }
                     else
                     {
                         throw new Exception();
                     }
-
                 }
+
             }
             catch (Exception)
             {
@@ -176,26 +189,27 @@ namespace CG.ProgDec.BL
             try
             {
                 List<Program> list = new List<Program>();
+
                 using (ProgDecEntities dc = new ProgDecEntities())
                 {
                     (from s in dc.tblPrograms
                      join dt in dc.tblDegreeTypes on s.DegreeTypeId equals dt.Id
-                     where s.DegreeTypeId == degreeTypeId || degreeTypeId ==null
+                     where s.DegreeTypeId == degreeTypeId || degreeTypeId == null
                      select new
                      {
                          s.Id,
                          s.Description,
                          s.DegreeTypeId,
-                         DegreeTypeName = dt.Description 
+                         DegreeTypeName = dt.Description
                      })
-                    .ToList()
-                    .ForEach(program => list.Add(new Program
-                    {
-                        Id = program.Id,
-                        Description = program.Description,
-                        DegreeTypeId = program.DegreeTypeId,
-                        //Programs = ProgramManager.Load(program.Id)
-                    }));
+                     .ToList()
+                     .ForEach(program => list.Add(new Program
+                     {
+                         Id = program.Id,
+                         Description = program.Description,
+                         DegreeTypeId = program.DegreeTypeId,
+                         DegreeTypeName = program.DegreeTypeName
+                     }));
                 }
 
                 return list;

@@ -58,10 +58,10 @@
 
             <div class="col-md-9 main body-content rounded-top">
                 <div class="header rounded-top">
-                    <h4>Title</h4>
+                    <h4>@ViewBag.Title</h4>
                 </div>
-                <div class="text-danger ms-2">@ViewBag.Error</div>
                 <main role="main" class="pb-3">
+                    <div class="text-danger ms-2">@ViewBag.Error</div> 
                     @RenderBody()
                 </main>
             </div>

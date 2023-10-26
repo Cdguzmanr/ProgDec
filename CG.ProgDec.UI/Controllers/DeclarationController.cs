@@ -14,7 +14,7 @@ namespace CG.ProgDec.UI.Controllers
         // Filter the Declaration by ProgramId
         public IActionResult Browse(int id)
         {
-            return View( nameof(Index), DeclarationManager.Load(id));
+            return View(nameof(Index), DeclarationManager.Load(id));
         }
 
         public IActionResult Details(int id)

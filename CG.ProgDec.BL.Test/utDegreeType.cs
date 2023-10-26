@@ -8,14 +8,24 @@ namespace CG.ProgDec.BL.Test
         [TestMethod]
         public void LoadTest()
         {
-            Assert.AreEqual(3, DegreeTypeManager.Load().Count());
+            List<DegreeType> items = DegreeTypeManager.Load();
+            Assert.AreEqual(3, items.Count());
+            Assert.AreEqual(9, items[2].Programs.Count());
+        }
+
+        [TestMethod]
+        public void LoadByIdTest()
+        {
+            var item = DegreeTypeManager.LoadById(1);
+            Assert.AreEqual(1, item.Id);
+            Assert.AreEqual(5, item.Programs.Count);
         }
 
         [TestMethod]
         public void InsertTest1()
         {
             int id = 0;
-            int results = DegreeTypeManager.Insert("Bale", ref id, true);
+            int results = DegreeTypeManager.Insert("Test", ref id, true);
             Assert.AreEqual(1, results);
         }
 

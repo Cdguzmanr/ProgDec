@@ -43,7 +43,7 @@ namespace CG.ProgDec.PL.Test
         [TestMethod]
         public void LoadByIdTest() { 
             var item = DegreeTypeManager.LoadById(1);
-            Assert.AreEqual(6, item.Programs.Count);
+            Assert.AreEqual(5, item.Programs.Count);
         }
 
 
