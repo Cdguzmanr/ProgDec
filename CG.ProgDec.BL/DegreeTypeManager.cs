@@ -54,7 +54,6 @@ namespace CG.ProgDec.BL
                     degreeType.Id = entity.Id;
 
 
-
                     dc.tblDegreeTypes.Add(entity);
                     results += dc.SaveChanges(); // Make sure to add the += and not only = 
 
