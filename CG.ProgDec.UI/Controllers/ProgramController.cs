@@ -1,5 +1,7 @@
 ﻿using CG.ProgDec.BL;
 using CG.ProgDec.BL.Models;
+using CG.ProgDec.UI.Models;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CG.ProgDec.UI.Controllers
@@ -21,7 +23,13 @@ namespace CG.ProgDec.UI.Controllers
 
         public IActionResult Create()
         {
-            return View();
+
+            ViewBag.Title = "Create a Program";
+            if (Authenticate.IsAuthenticated(HttpContext))
+                return View();
+            else
+                return RedirectToAction("Login", "User", new {returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request)}); // Still need to add "Login" 
+            
         }
 
         [HttpPost]

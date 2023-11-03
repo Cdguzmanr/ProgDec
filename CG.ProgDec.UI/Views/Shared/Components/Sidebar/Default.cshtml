@@ -6,9 +6,13 @@
             <a asp-controller="Declaration"
                asp-action="Browse"
                asp-route-id="@program.Id">@program.Description</a>
-
         </li>
     }
+
+    <li><a asp-controller="User" asp-action="Login">Login</a></li>
+    <li><a asp-controller="User" asp-action="Logout">Logout</a></li>
+    <li><a asp-controller="Declaration" asp-action="Index">All Declarations</a></li>
+
 </ul>
 
 <!-- asp-route=" program.Id"  
