@@ -1,6 +1,7 @@
 ﻿using CG.ProgDec.BL;
 using CG.ProgDec.BL.Models;
 using CG.ProgDec.UI.Models;
+using CG.ProgDec.UI.ViewModels;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,19 +26,25 @@ namespace CG.ProgDec.UI.Controllers
         {
 
             ViewBag.Title = "Create a Program";
+
+            ProgramVM programVM = new ProgramVM();
+
+            programVM.Program = new BL.Models.Program();
+            programVM.DegreeTypes = DegreeTypeManager.Load();
+
             if (Authenticate.IsAuthenticated(HttpContext))
-                return View();
+                return View(programVM);
             else
                 return RedirectToAction("Login", "User", new {returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request)}); // Still need to add "Login" 
             
         }
 
         [HttpPost]
-        public IActionResult Create(BL.Models.Program program)
+        public IActionResult Create(ProgramVM programVM)
         {
             try
             {
-                int result = ProgramManager.Insert(program);
+                int result = ProgramManager.Insert(programVM.Program);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
