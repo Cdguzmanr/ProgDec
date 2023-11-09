@@ -44,6 +44,8 @@ namespace CG.ProgDec.UI.Controllers
         {
             try
             {
+
+
                 int result = ProgramManager.Insert(programVM.Program);
                 return RedirectToAction(nameof(Index));
             }

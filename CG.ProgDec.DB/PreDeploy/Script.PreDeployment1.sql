@@ -15,3 +15,5 @@ Drop Table IF EXISTS tblProgram
 Drop Table IF EXISTS tblStudents
 Drop Table IF EXISTS tblDeclaration
 Drop Table IF EXISTS tblUser
+Drop Table IF EXISTS tblStudentAdvisor
+Drop Table IF EXISTS tblAdvisor

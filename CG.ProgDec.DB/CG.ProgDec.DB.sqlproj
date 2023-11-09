@@ -67,6 +67,8 @@
     <Build Include="Tables\tblStudent.sql" />
     <Build Include="Tables\tblDeclaration.sql" />
     <Build Include="Tables\tblUser.sql" />
+    <Build Include="Tables\tblAdvisor.sql" />
+    <Build Include="Tables\tblStudentAdvisor.sql" />
   </ItemGroup>
   <ItemGroup>
     <PreDeploy Include="PreDeploy\Script.PreDeployment1.sql" />
@@ -78,6 +80,8 @@
     <None Include="PostDeploy\DefaultData\Programs.sql" />
     <None Include="PostDeploy\DefaultData\Declarations.sql" />
     <None Include="remote.publish.xml" />
+    <None Include="PostDeploy\DefaultData\Advisors.sql" />
+    <None Include="PostDeploy\DefaultData\StudentAdvisors.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeploy\Script.PostDeployment1.sql" />
