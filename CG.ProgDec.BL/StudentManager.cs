@@ -157,7 +157,8 @@ namespace CG.ProgDec.BL
                             Id = entity.Id,
                             FirstName = entity.FirstName,
                             LastName = entity.LastName,
-                            StudentId = entity.StudentId
+                            StudentId = entity.StudentId,
+                            Advisors = AdvisorManager.Load(id)
                         };                        
                     }    
                     else

@@ -1,16 +1,11 @@
 ﻿@model CG.ProgDec.BL.Models.Student
 
 @{
-    ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
-
 <div>
-    <h4>Student</h4>
-    <hr />
-    <dl class="row">
+    <dl class="row m-2">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Id)
         </dt>
@@ -36,8 +31,14 @@
             @Html.DisplayFor(model => model.StudentId)
         </dd>
     </dl>
+
+
+    <div>
+        <partial name="_AdvisorPartial" model="Model.Advisors" />
+    </div>
+
 </div>
-<div>
+<div class="m-2">
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id  }) |
     <a asp-action="Index">Back to List</a>
 </div>

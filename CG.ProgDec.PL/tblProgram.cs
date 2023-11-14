@@ -10,4 +10,6 @@ public partial class tblProgram
     public string Description { get; set; } = null!;
 
     public int DegreeTypeId { get; set; }
+
+    public string ImagePath { get; set; } = null!;
 }
