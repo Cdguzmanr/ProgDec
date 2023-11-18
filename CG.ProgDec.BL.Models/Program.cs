@@ -17,5 +17,8 @@ namespace CG.ProgDec.BL.Models
 
         [DisplayName("Degree Name")]
         public string DegreeTypeName { get; set; }
+
+        [DisplayName("Image")]
+        public string ImagePath { get; set; }
     }
 }

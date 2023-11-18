@@ -8,11 +8,11 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <div class="form-group">
                 <label asp-for="Program.DegreeTypeName" class="control-label"></label>
-                <select 
-                    asp-for="Program.DegreeTypeId" class="form-control" 
-                    asp-items="@(new SelectList(Model.DegreeTypes, "Id", "Description"))"></select>
+                <select asp-for="Program.DegreeTypeId" class="form-control"
+                        asp-items="@(new SelectList(Model.DegreeTypes, "Id", "Description"))"></select>
                 <span asp-validation-for="Program.DegreeTypeId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -20,8 +20,16 @@
                 <input asp-for="Program.Description" class="form-control" />
                 <span asp-validation-for="Program.Description" class="text-danger"></span>
             </div>
-
             <div class="form-group">
+                <label asp-for="Program.ImagePath" class="control-label"></label>
+                <img class="imagepropmedium"
+                     alt="@Model.Program.Description"
+                     id="programimage"
+                     src="~/images/@Model.Program.ImagePath" />
+                <input asp-for="Program.ImagePath" class="form-control" />
+                <span asp-validation-for="Program.ImagePath" class="text-danger"></span>
+            </div>
+            <div class="form-group m-2">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -33,5 +41,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

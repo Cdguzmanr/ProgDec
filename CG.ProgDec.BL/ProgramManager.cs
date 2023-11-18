@@ -7,14 +7,15 @@ namespace CG.ProgDec.BL
 {
     public static class ProgramManager
     {
-        public static int Insert(string description, int degreeTypeId, ref int id, bool rollback = false) // Id by reference
+        public static int Insert(string description, int degreeTypeId, string imagePath , ref int id, bool rollback = false) // Id by reference
         {
             try
             {
                 Program program = new Program()
                 {
                     Description = description,
-                    DegreeTypeId = degreeTypeId
+                    DegreeTypeId = degreeTypeId,
+                    ImagePath = imagePath,
                 };
                 int result = Insert(program, rollback);
 
@@ -44,7 +45,8 @@ namespace CG.ProgDec.BL
                     tblProgram entity = new tblProgram();
                     entity.Id = dc.tblPrograms.Any() ? dc.tblPrograms.Max(s => s.Id) + 1 : 1;
                     entity.Description = program.Description;
-                    entity.DegreeTypeId = program.DegreeTypeId;                 
+                    entity.DegreeTypeId = program.DegreeTypeId;
+                    entity.ImagePath = program.ImagePath;
 
                     // IMPORTANT - BACK FILL THE ID 
                     program.Id = entity.Id;
@@ -85,7 +87,7 @@ namespace CG.ProgDec.BL
                     {
                         entity.Description = program.Description;
                         entity.DegreeTypeId = program.DegreeTypeId;
-
+                        entity.ImagePath = program.ImagePath;
                         results = dc.SaveChanges();
                     }
                     else
@@ -154,7 +156,8 @@ namespace CG.ProgDec.BL
                                       s.Id,
                                       s.Description,
                                       s.DegreeTypeId,
-                                      DegreeTypeName = dt.Description
+                                      DegreeTypeName = dt.Description,
+                                      s.ImagePath
                                   })
                                 .FirstOrDefault();
 
@@ -165,7 +168,8 @@ namespace CG.ProgDec.BL
                             Id = entity.Id,
                             Description = entity.Description,
                             DegreeTypeId = entity.DegreeTypeId,
-                            DegreeTypeName = entity.DegreeTypeName
+                            DegreeTypeName = entity.DegreeTypeName,
+                            ImagePath = entity.ImagePath
 
                         };
                     }
@@ -200,7 +204,8 @@ namespace CG.ProgDec.BL
                          s.Id,
                          s.Description,
                          s.DegreeTypeId,
-                         DegreeTypeName = dt.Description
+                         DegreeTypeName = dt.Description,
+                         s.ImagePath
                      })
                      .ToList()
                      .ForEach(program => list.Add(new Program
@@ -208,7 +213,8 @@ namespace CG.ProgDec.BL
                          Id = program.Id,
                          Description = program.Description,
                          DegreeTypeId = program.DegreeTypeId,
-                         DegreeTypeName = program.DegreeTypeName
+                         DegreeTypeName = program.DegreeTypeName,
+                         ImagePath = program.ImagePath
                      }));
                 }
 

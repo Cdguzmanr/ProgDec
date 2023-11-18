@@ -1,5 +1,7 @@
 
 
+using CG.ProgDec.BL.Models;
+
 namespace CG.ProgDec.PL.Test
 {
     [TestClass]
@@ -45,6 +47,7 @@ namespace CG.ProgDec.PL.Test
             tblProgram entity = new tblProgram();
             entity.DegreeTypeId = 2;
             entity.Description = "Basket Weaving";
+            entity.ImagePath = "Test";
             entity.Id = -99;
 
             //add the entity to the database
@@ -54,7 +57,6 @@ namespace CG.ProgDec.PL.Test
             int result = dc.SaveChanges();
 
             Assert.AreEqual(1, result);
-
         }
 
 

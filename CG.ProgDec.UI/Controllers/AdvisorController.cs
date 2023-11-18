@@ -8,7 +8,7 @@ namespace CG.ProgDec.UI.Controllers
     {
         public IActionResult Index()
         {
-            ViewBag.Title = "List of Advisorss";
+            ViewBag.Title = "List of Advisors";
             return View(AdvisorManager.Load());
         }
 
@@ -17,11 +17,12 @@ namespace CG.ProgDec.UI.Controllers
             var item = AdvisorManager.LoadById(id);
             ViewBag.Title = "Details for " + item.Name;
             return View(item);
+
         }
 
         public IActionResult Create()
         {
-            ViewBag.Title = "Create an Advisor";
+            ViewBag.Title = "Create a Advisor";
             return View();
         }
 
@@ -35,7 +36,7 @@ namespace CG.ProgDec.UI.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Title = "Create an Advisor";
+                ViewBag.Title = "Create a Advisor";
                 ViewBag.Error = ex.Message;
                 return View(advisor);
             }
@@ -86,7 +87,5 @@ namespace CG.ProgDec.UI.Controllers
                 return View(advisor);
             }
         }
-
-
     }
 }

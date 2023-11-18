@@ -1,4 +1,4 @@
-﻿@model CG.ProgDec.BL.Models.Program
+﻿@model CG.ProgDec.UI.ViewModels.ProgramVM
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,29 +8,41 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input hidden asp-for="Program.Id" class="form-control" />
+
             <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
+                <label asp-for="Program.DegreeTypeName" class="control-label"></label>
+                <select asp-for="Program.DegreeTypeId" class="form-control"
+                        asp-items="@(new SelectList(Model.DegreeTypes, "Id", "Description"))"></select>
+                <span asp-validation-for="Program.DegreeTypeId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+                <label asp-for="Program.Description" class="control-label"></label>
+                <input asp-for="Program.Description" class="form-control" />
+                <span asp-validation-for="Program.Description" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="DegreeTypeId" class="control-label"></label>
-                <input asp-for="DegreeTypeId" class="form-control" />
-                <span asp-validation-for="DegreeTypeId" class="text-danger"></span>
+                <label asp-for="Program.ImagePath" class="control-label"></label><br />
+                <img class="imagepropmedium m-2"
+                     alt="@Model.Program.Description"
+                     id="programimage"
+                     onclick="on('/images/@Model.Program.ImagePath')"
+                     src="~/images/@Model.Program.ImagePath" />
+                <input asp-for="Program.ImagePath" class="form-control" />
+                <span asp-validation-for="Program.ImagePath" class="text-danger"></span>
             </div>
+
+
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Submit" class="btn btn-primary mt-2" />
             </div>
         </form>
     </div>
 </div>
 
-<div class="m-2" >
+<div class="ms-4">
     <a asp-action="Index">Back to List</a>
 </div>
 

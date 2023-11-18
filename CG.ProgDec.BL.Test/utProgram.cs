@@ -14,7 +14,7 @@ namespace CG.ProgDec.BL.Test
         public void InsertTest1()
         {
             int id = 0;
-            int results = ProgramManager.Insert("Test", 3, ref id, true);
+            int results = ProgramManager.Insert("Test", 3, "justinbieber.jpg", ref id, true);
             Assert.AreEqual(1, results);
         }
 
@@ -24,7 +24,9 @@ namespace CG.ProgDec.BL.Test
             int id = 0;
             Program program = new Program
             {
-                Description = "Test"
+                DegreeTypeId = 1,
+                Description = "Test",
+                ImagePath = "test.png"
             };
 
             int results = ProgramManager.Insert(program, true);
