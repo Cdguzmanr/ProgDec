@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <input hidden asp-for="Program.Id" class="form-control" />
@@ -31,6 +31,7 @@
                      onclick="on('/images/@Model.Program.ImagePath')"
                      src="~/images/@Model.Program.ImagePath" />
                 <input asp-for="Program.ImagePath" class="form-control" />
+                <input type="file" name="File" id="File" accept="image/" onchange="loadFile(event)" />
                 <span asp-validation-for="Program.ImagePath" class="text-danger"></span>
             </div>
 
@@ -49,3 +50,10 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script>
+    var loadFile = function (event) {
+        var output = document.getElementById('programimage');
+        output.src = URL.createObjectURL(event.target.files[0]);
+    }
+</script>

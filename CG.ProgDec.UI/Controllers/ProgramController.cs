@@ -9,6 +9,14 @@ namespace CG.ProgDec.UI.Controllers
 {
     public class ProgramController : Controller
     {
+
+        private readonly IWebHostEnvironment _host;
+
+        public ProgramController(IWebHostEnvironment host)
+        {
+            _host = host;
+        }
+
         public IActionResult Index()
         {
             ViewBag.Title = "List of All Programs";
@@ -57,12 +65,17 @@ namespace CG.ProgDec.UI.Controllers
 
         public IActionResult Edit(int id)
         {
-            ProgramVM programVM = new ProgramVM();
-            programVM.Program = ProgramManager.LoadById(id);
-            programVM.DegreeTypes = DegreeTypeManager.Load();
-            ViewBag.Title = "Edit " + programVM.Program.Description;
+
             if (Authenticate.IsAuthenticated(HttpContext))
+            {
+                ProgramVM programVM = new ProgramVM();
+
+                programVM.Program = ProgramManager.LoadById(id);
+                programVM.DegreeTypes = DegreeTypeManager.Load();
+                ViewBag.Title = "Edit " + programVM.Program.Description;
+
                 return View(programVM);
+            }
             else
                 return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
         }
@@ -72,6 +85,22 @@ namespace CG.ProgDec.UI.Controllers
         {
             try
             {
+                // Process the image
+
+                if (programVM.File != null)
+                {
+                    programVM.Program.ImagePath = programVM.File.FileName;
+
+                    string path = _host.WebRootPath + "\\images\\";
+
+                    using (var stream = System.IO.File.Create(path + programVM.File.FileName)) // You are going to process the characters enconded in the image
+                    {
+                        programVM.File.CopyTo(stream);
+
+                        ViewBag.Message = "File Uploaded Successfully...";
+                    } 
+                }
+
                 int result = ProgramManager.Update(programVM.Program, rollback);
                 return RedirectToAction(nameof(Index));
             }

@@ -15,6 +15,8 @@ namespace CG.ProgDec.UI.Controllers
         // Filter the Declaration by ProgramId
         public IActionResult Browse(int id)
         {
+            var results = ProgramManager.LoadById(id);
+            ViewBag.Title = "List of  " + results.Description + "  Declaration";                  // -- MODIFY LATER
             return View(nameof(Index), DeclarationManager.Load(id));
         }
 
