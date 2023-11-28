@@ -1,10 +1,11 @@
 ﻿@model CG.ProgDec.UI.ViewModels.ProgramVM
+<!-- NOTE: Change MovieController to send a  -->
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row">
+<div class="row m-2">
     <div class="col-md-4">
         <form asp-action="Edit" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
