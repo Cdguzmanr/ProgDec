@@ -23,6 +23,8 @@
                     <h5>@Html.DisplayFor(modelItem => item.Genre)</h5>
                     <h5>@Html.DisplayFor(modelItem => item.DateFounded)</h5>
                 </div>
+
+
                 <div class="card-footer">
                     <a class="btn btn-sm btn-primary" asp-route-id="@item.Id" asp-action="Edit">Edit</a>
                     <a class="btn btn-sm btn-primary" asp-route-id="@item.Id" asp-action="Details">Details</a>
@@ -32,7 +34,6 @@
             </div>
             
         </div>
-
     }
 
 </div>

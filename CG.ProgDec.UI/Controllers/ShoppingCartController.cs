@@ -28,73 +28,31 @@ namespace CG.ProgDec.UI.Controllers
             }
         }
 
-        // GET: ShoppingCartController/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Remove(int id)
         {
+            cart = GetShoppingCart();
+            Declaration declaration = cart.Items.FirstOrDefault(x => x.Id == id);
+            ShoppingCartManager.Remove(cart, declaration);
+            HttpContext.Session.SetObject("cart", cart);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Add(int id)
+        {
+            cart = GetShoppingCart();
+            Declaration declaration = DeclarationManager.LoadById(id);
+            ShoppingCartManager.Add(cart, declaration);
+            HttpContext.Session.SetObject("cart", cart);
+            return RedirectToAction(nameof(Index), "Declaration");
+        }
+
+        public IActionResult Checkout(int id) 
+        {
+            cart = GetShoppingCart();
+            ShoppingCartManager.Checkout(cart);
+            HttpContext.Session.SetObject("cart", null);
             return View();
         }
 
-        // GET: ShoppingCartController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: ShoppingCartController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ShoppingCartController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: ShoppingCartController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ShoppingCartController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ShoppingCartController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

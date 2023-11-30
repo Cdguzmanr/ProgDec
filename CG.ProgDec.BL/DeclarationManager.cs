@@ -184,6 +184,10 @@ namespace CG.ProgDec.BL
                             StudentId = entity.StudentId,
                             ProgramId = entity.ProgramId,
                             ChangeDate = entity.ChangeDate,
+                            StudentName = entity.StudentName,
+                            ProgramName = entity.ProgramName,
+                            DegreeTypeName = entity.DegreeTypeName,
+
 
                         };
                     }

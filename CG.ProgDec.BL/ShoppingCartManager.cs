@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CG.ProgDec.BL
 {
-    internal class ShoppingCartManager
+    public class ShoppingCartManager
     {
         public static void Add(ShoppingCart cart, Declaration declaration)
         {

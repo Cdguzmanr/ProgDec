@@ -8,6 +8,7 @@ namespace CG.Bands.UI.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Genre { get; set; }
+
         //Everything in [ ] are atributes
         [DisplayName("Date Founded")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]

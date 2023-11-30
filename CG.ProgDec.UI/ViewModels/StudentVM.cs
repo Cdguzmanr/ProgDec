@@ -15,7 +15,7 @@
         {
             Advisors = AdvisorManager.Load();
             Student = StudentManager.LoadById(id);
-            AdvisorIds = Student.Advisors.Select(x => x.Id).ToList();
+            AdvisorIds = Student.Advisors.Select(x => x.Id);
         }
     }
 }
