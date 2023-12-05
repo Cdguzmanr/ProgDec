@@ -116,3 +116,11 @@ body {
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%)
 }
+
+div.dataTables_filter, div.dataTables_lengthm, .dataTables_wrapper {
+    padding: 5px;
+}
+
+option:checked {
+    background-color: rgba(102, 51, 153, .25);
+}
