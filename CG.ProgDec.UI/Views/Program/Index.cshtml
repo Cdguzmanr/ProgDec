@@ -7,6 +7,7 @@
 
 <p class="row m-2">
     <a asp-action="Create">Create New</a>
+    <a asp-action="Insert">Insert New</a>
 </p>
 
 <table id="myData" class="table data-table">
@@ -46,6 +47,10 @@
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a>
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+
+                    <a asp-action="Update" asp-route-id="@item.Id">Update</a>
+                    <a asp-action="GetOne" asp-route-id="@item.Id">Get One</a>
+                    <a asp-action="Remove" asp-route-id="@item.Id">Remove</a>
             </td>
         </tr>
 }
